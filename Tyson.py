@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import discord
 import random
 import socket
@@ -79,17 +81,22 @@ async def on_message(message):
     if 'chicken' in message.content.lower():
         await message.channel.send('Tyson Chicken Nugget!')
 
-    if 'good boy' in message.content.lower():
-        await message.channel.send('<:happytyson:601457297302093844>')
-
-    if 'bad dog' in message.content.lower():
+    if 'good boy' in message.content.lower() or 'good try tyson' in message.content.lower():
         await message.channel.send('<:happytyson:601457297302093844>')
 
     if 'blep' in message.content.lower():
         await message.add_reaction('<:happytyson:601457297302093844>')
 
     if 'tyson' in message.content.lower():
+        await message.add_reaction('<:happytyson:601457297302093844>')
+
+    if 'fuck' in message.content.lower():
         await message.add_reaction('<:angrytyson:593509277705044181>')
+        await message.channel.send('*grrrrrr*')
+
+    if message.content == "STOP":
+        await message.channel.send('<:angrytyson:593509277705044181>')
+
 
 
 
