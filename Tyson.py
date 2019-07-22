@@ -65,7 +65,7 @@ async def on_message(message):
                 size = min(int(words2[1]), 1000)
                 output = '('
                 for i in range(dice):
-                    output += str(random.randint(1, size)))
+                    output += str(random.randint(1, size))
                     if i < dice-1:
                         output += ', '
                 output += ')'
