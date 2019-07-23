@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 
+def contains(message, commands):
+    for command in commands:
+        if command in message.content.lower():
+            return True
+
+def equals(message, commands):
+    for command in commands:
+        if command == message.content:
+            return True
+
+def command(message, command):
+    if message.content.lower().startswith('$' + command) \
+    or message.content.lower().startswith('tyson '+ command):
+        return True
+
+
+
 import discord
 import random
 import socket
@@ -27,19 +44,19 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('$book'):
+    if command(message, "book"):
         await message.channel.send('The current story is "The Doctor\'s Case" by Stephen King.')
 
-    if message.content.startswith('$bite'):
+    if command(message, "bite"):
         await message.channel.send('*Aims for your jugular but misses. He is very smol.*')
 
-    if message.content.startswith('$sit') or message.content.startswith('Tyson sit'):
+    if command(message, "sit"):
         await message.channel.send('*Tyson sits on the couch. But not because you told him to.*')
 
-    if message.content.startswith('$stay') or message.content.startswith('Tyson stay'):
+    if command(message, "stay"):
         await message.channel.send('*Tyson looks up at you and resumes napping.*')
 
-    if message.content.startswith('$come') or message.content.startswith('Tyson stay'):
+    if command(message, "come"):
         await message.channel.send('*Tyson ignores you.*')
 
     if message.content.startswith('$bark'):
@@ -54,7 +71,7 @@ async def on_message(message):
             output += 'Yap! '
         await message.channel.send(output)
     
-    if message.content.startswith('>'):
+    if message.content.startswith('>') and 'tyson' in message.channel.name:
         response = game.send(message.content[1:])
         await message.channel.send(response)
 
@@ -78,10 +95,10 @@ async def on_message(message):
         else:
             await message.channel.send('Invalid input! Bork.')
 
-    if 'chicken' in message.content.lower():
+    if contains(message, ['chicken', 'nugget']):
         await message.channel.send('Tyson Chicken Nugget!')
 
-    if 'good boy' in message.content.lower() or 'good try tyson' in message.content.lower():
+    if contains(message, ['good boy', 'good dog', 'good try tyson']):
         await message.channel.send('<:happytyson:601457297302093844>')
 
     if 'blep' in message.content.lower():
@@ -90,7 +107,7 @@ async def on_message(message):
     if 'tyson' in message.content.lower():
         await message.add_reaction('<:happytyson:601457297302093844>')
 
-    if 'fuck' in message.content.lower():
+    if contains(message, ['fuck', 'shit', 'dumb idiot']):
         await message.add_reaction('<:angrytyson:593509277705044181>')
         await message.channel.send('*grrrrrr*')
 
