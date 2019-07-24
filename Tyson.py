@@ -22,7 +22,8 @@ import random
 import socket
 import asyncio
 
-from tysongame import Game
+from quietyear import Game
+
 
 game = Game()
 
@@ -71,9 +72,8 @@ async def on_message(message):
             output += 'Yap! '
         await message.channel.send(output)
     
-    if message.content.startswith('>') and 'tyson' in message.channel.name:
-        response = game.send(message.content[1:])
-        await message.channel.send(response)
+    if message.content.startswith('!'):
+        await game.send(message)
 
     if message.content.startswith('$roll'):
         words = message.content.split(' ')
