@@ -21,11 +21,16 @@ import discord
 import random
 import socket
 import asyncio
+import os.path
+import pickle
 
 from quietyear import Game
 
 
-game = Game()
+if os.path.exists('save.p'):
+    game = pickle.load(open("save.p", "rb"))
+else:
+    game = Game()
 
 client = discord.Client()
 
@@ -74,6 +79,7 @@ async def on_message(message):
     
     if message.content.startswith('!'):
         await game.send(message)
+        pickle.dump(game, open("save.p","wb"))
 
     if message.content.startswith('$roll'):
         words = message.content.split(' ')

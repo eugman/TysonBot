@@ -2,15 +2,30 @@ class Player():
     def __init__(self, user):
         self.name = user.name
         self.id = user.id
+        self.contempt = 0
 
 class World()
+    def __init__(self):
+        resources = []
+        npcs = []
 
-class Location
+class Resource()
+    def __init__(self, name):
+        self.name = name
+        self.isScarce = True
+
+class Question()
+    def __init__(self, cardnumber, Q1, Q2):
+        self.cardnumber = cardnumber
+        self.Q1 = Q1
+        self.Q2 = Q2
+
+#class Location
 
 class Game():
     def __init__(self):
         self.players = []
-
+        self.questions = [Question("AH", "What group has the highest status in the community?", "Are there distinct family units in the community?"]
 
     async def send(self, message):
         commands = message.content[1:].strip().split(' ')
@@ -28,9 +43,11 @@ class Game():
                 self.players.append(Player(message.author))
                 await message.channel.send(message.author.name + " has joined the current game")
             elif command == "new":
-                if param = "game":
+                if param == "game":
                     self.players = []
                     self.world = ""
+                if param == "resource":
+                    self.resource += Resource(commands[2])
                 else:
                     await message.channel.send("New what?")
             elif command == "list":
@@ -39,7 +56,7 @@ class Game():
                     for player in self.players:
                         output += player.name + '\n'
 
-                    if len(players) == 0:
+                    if len(self.players) == 0:
                         output += "None"
                     await message.channel.send(output)
                 else:
